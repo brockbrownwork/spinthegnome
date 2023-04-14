@@ -11,9 +11,10 @@ img {
     cursor: pointer;
 }
 
-img#gnome:focus {
-    outline: none;
+img#gnome {
+    -webkit-tap-highlight-color: transparent;
 }
+
 
 #gnome-name,
 #grpm {
