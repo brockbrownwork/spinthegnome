@@ -98,8 +98,8 @@
 
                 // gradually increase volume over 5 seconds
                 const fadeInInterval = setInterval(() => {
-                audio.volume += 0.025 / 8;
-                if (audio.volume >= 0.5) {
+                audio.volume += 0.025 / 16;
+                if (audio.volume >= 0.25) {
                     clearInterval(fadeInInterval); // clear the interval when volume reaches 0.5
                 }
                 }, 500);
