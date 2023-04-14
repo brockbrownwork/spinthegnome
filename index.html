@@ -2,64 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="chatroom.css">
+    <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>spinthegno.me</title>
-    <style>
-        body {
-            font-family: Comic Sans MS;
-            text-align: center;
-            background-image: url('grass.png');
-            background-repeat: repeat;
-        }
-
-
-        img {
-            max-width: 300px;
-            cursor: pointer;
-        }
-
-        #gnome-name,
-        #grpm {
-            color: white;
-            text-shadow: 1px 1px 2px black, -1px -1px 2px black, 1px -1px 2px black, -1px 1px 2px black;
-            font-size: 24px;
-            margin-top: 20px;
-        }
-        #grpm,
-        #faster-text {
-            display: none;
-        }
-
-
-        .blink {
-        animation: blink-animation 1s step-start infinite;
-        }
-
-        @keyframes blink-animation {
-        0% {
-            opacity: 1;
-        }
-        50% {
-            opacity: 0;
-        }
-        100% {
-            opacity: 1;
-        }
-}
-
-        #faster-text {
-        color: red;
-        font-size: 32px;
-        }
-
-    </style>
 </head>
 <body>
     <img id="gnome" src="gnome.png" alt="Gnome">
     <div id="gnome-name">Gnomie Goggles the Great and Gravity-Defying</div>
     <div id="grpm">0 GRPM</div>
     <div id="clicks">0 Clicks</div>
-    <div id="faster-text" class = "blink">FASTER, FASTER!</div>
+    <span id="faster-text" class = "blink">
+        <img class = "minion-siren" src = "minion_siren.gif"/>
+        FASTER, FASTER!
+        <img class = "minion-siren" src = "minion_siren.gif"/>
+    </span>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -128,6 +85,58 @@
         // Initialize clicks display on page load
         updateClicksDisplay();
         gnome.addEventListener('click', increaseRpm);
+
+        
+
+        
     </script>
+
+<div class="chat-container">
+    <div class="chat-message sender">
+        <p>Hello, how are you?</p>
+    </div>
+    <div class="chat-message receiver">
+        <p>Hi! I'm doing great, thank you. How about you?</p>
+    </div>
+    <div class="chat-message sender">
+        <p>I'm fine, thanks for asking! What are you up to today?</p>
+    </div>
+</div>
+<div class="input-container">
+    <input type="text" class="input-message" placeholder="Type your message..." id="inputMessage">
+    <button class="send-button" id="sendButton">Send</button>
+</div>
+
+<script>
+    document.getElementById("sendButton").addEventListener("click", function() {
+        const inputMessage = document.getElementById("inputMessage");
+        const chatContainer = document.querySelector(".chat-container");
+
+        if (inputMessage.value.trim() !== "") {
+            const newMessage = document.createElement("div");
+            newMessage.className = "chat-message sender";
+            
+            const newMessageText = document.createElement("p");
+            newMessageText.textContent = inputMessage.value.trim();
+            
+            newMessage.appendChild(newMessageText);
+            chatContainer.appendChild(newMessage);
+
+            // Scroll to the bottom of the chat container
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            inputMessage.value = "";
+        }
+    });
+
+    // Send message when pressing Enter key
+    document.getElementById("inputMessage").addEventListener("keypress", function(e) {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            document.getElementById("sendButton").click();
+        }
+    });
+</script>
+
 </body>
 </html>
