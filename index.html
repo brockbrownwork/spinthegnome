@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gnome Spinner</title>
+    <title>spinthegno.me</title>
     <style>
         body {
             font-family: Comic Sans MS;
@@ -58,16 +58,24 @@
     <img id="gnome" src="gnome.png" alt="Gnome">
     <div id="gnome-name">Gnomie Goggles the Great and Gravity-Defying</div>
     <div id="grpm">0 GRPM</div>
+    <div id="clicks">0 Clicks</div>
     <div id="faster-text" class = "blink">FASTER, FASTER!</div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         let gnome = document.getElementById('gnome');
         let grpmDisplay = document.getElementById('grpm');
+        let clicksDisplay = document.getElementById('clicks');
         let fasterText = document.getElementById('faster-text');
         let rpm = 0;
         let rotation = 0;
         let animation;
+        let clicks = localStorage.getItem('clicks') ? parseInt(localStorage.getItem('clicks')) : 0;
+
+        // Update clicks display
+        function updateClicksDisplay() {
+            clicksDisplay.textContent = `${clicks} Clicks`;
+        }
 
         function spinGnome() {
             rotation += (360 * rpm) / (60 * 1000) * 16.67;
@@ -76,6 +84,11 @@
         }
 
         function increaseRpm() {
+            // play bloop.wav at 0.25 volume when the gnome is clicked
+            const bloop = new Audio('bloop.wav');
+            bloop.volume = 0.25;
+            bloop.playbackRate = 2;
+            bloop.play();
             if (rpm === 0) {
                 // start the loop of the birds chirping
                 const audio = new Audio('birds-loop.wav');
@@ -85,9 +98,9 @@
 
                 // gradually increase volume over 5 seconds
                 const fadeInInterval = setInterval(() => {
-                audio.volume += 0.1;
-                if (audio.volume >= 1) {
-                    clearInterval(fadeInInterval); // clear the interval when volume reaches 1
+                audio.volume += 0.025 / 8;
+                if (audio.volume >= 0.5) {
+                    clearInterval(fadeInInterval); // clear the interval when volume reaches 0.5
                 }
                 }, 500);
                 
@@ -96,6 +109,11 @@
             }
 
             rpm += 1;
+            // Update clicks and save to localStorage
+            clicks++;
+            console.log(clicks);
+            localStorage.setItem('clicks', clicks);
+            updateClicksDisplay();
             grpmDisplay.textContent = `${rpm} GRPM`;
 
             if ($('#grpm').css('display') === 'none') {
@@ -107,6 +125,8 @@
             }
         }
 
+        // Initialize clicks display on page load
+        updateClicksDisplay();
         gnome.addEventListener('click', increaseRpm);
     </script>
 </body>
