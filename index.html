@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gnome Spinner</title>
+    <style>
+        body {
+            font-family: Comic Sans MS;
+            text-align: center;
+            background-image: url('grass.png');
+            background-repeat: repeat;
+        }
+
+
+        img {
+            max-width: 300px;
+            cursor: pointer;
+        }
+
+        #gnome-name,
+        #grpm {
+            color: white;
+            text-shadow: 1px 1px 2px black, -1px -1px 2px black, 1px -1px 2px black, -1px 1px 2px black;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+        #grpm,
+        #faster-text {
+            display: none;
+        }
+
+
+        .blink {
+        animation: blink-animation 1s step-start infinite;
+        }
+
+        @keyframes blink-animation {
+        0% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+}
+
+        #faster-text {
+        color: red;
+        font-size: 32px;
+        }
+
+    </style>
+</head>
+<body>
+    <img id="gnome" src="gnome.png" alt="Gnome">
+    <div id="gnome-name">Gnomie Goggles the Great and Gravity-Defying</div>
+    <div id="grpm">0 GRPM</div>
+    <div id="faster-text" class = "blink">FASTER, FASTER!</div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        let gnome = document.getElementById('gnome');
+        let grpmDisplay = document.getElementById('grpm');
+        let fasterText = document.getElementById('faster-text');
+        let rpm = 0;
+        let rotation = 0;
+        let animation;
+
+        function spinGnome() {
+            rotation += (360 * rpm) / (60 * 1000) * 16.67;
+            gnome.style.transform = `rotate(${rotation}deg)`;
+            animation = requestAnimationFrame(spinGnome);
+        }
+
+        function increaseRpm() {
+            if (rpm === 0) {
+                // start the loop of the birds chirping
+                const audio = new Audio('birds-loop.wav');
+                audio.loop = true;
+                audio.volume = 0; // start with volume set to 0
+                audio.play();
+
+                // gradually increase volume over 5 seconds
+                const fadeInInterval = setInterval(() => {
+                audio.volume += 0.1;
+                if (audio.volume >= 1) {
+                    clearInterval(fadeInInterval); // clear the interval when volume reaches 1
+                }
+                }, 500);
+                
+                // start the animation
+                animation = requestAnimationFrame(spinGnome);
+            }
+
+            rpm += 1;
+            grpmDisplay.textContent = `${rpm} GRPM`;
+
+            if ($('#grpm').css('display') === 'none') {
+                $('#grpm').fadeIn(1000);
+            }
+
+            if (rpm >= 10) {
+                $('#faster-text').show();
+            }
+        }
+
+        gnome.addEventListener('click', increaseRpm);
+    </script>
+</body>
+</html>
