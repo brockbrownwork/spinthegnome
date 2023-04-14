@@ -11,6 +11,10 @@ img {
     cursor: pointer;
 }
 
+img#gnome:focus {
+    outline: none;
+}
+
 #gnome-name,
 #grpm {
     color: white;
