@@ -5,6 +5,7 @@ body {
     background-repeat: repeat;
 }
 
+* { touch-action: manipulation; }
 
 img {
     max-width: 300px;
