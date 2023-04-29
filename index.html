@@ -6,18 +6,11 @@
     <link rel="stylesheet" href="chatroom.css">
     <link rel="stylesheet" href="style.css">
     <title>spinthegno.me</title>
-    <script>
-        document.addEventListener('touchstart', function(event) {
-            if (event.touches.length > 1) {
-                event.preventDefault();
-            }
-        }, { passive: false });
-    </script>
 </head>
 <body>
     <br/>
     <img id="gnome" src="gnome.png" alt="Gnome">
-    <div id="gnome-name">Gnomie Goggles the Great and Gravity-Defying (test, is this even updating?)</div>
+    <div id="gnome-name">Gnomie Goggles the Great and Gravity-Defying (hmm)</div>
     <div id="grpm">0 GRPM</div>
     <div id="clicks">0 Clicks</div>
     <span id="faster-text" class = "blink">
@@ -27,6 +20,23 @@
     </span>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+          let lastTouchTime = 0;
+      
+          $(document).on('touchstart', function(event) {
+            const currentTime = new Date().getTime();
+            const timeDifference = currentTime - lastTouchTime;
+      
+            if (timeDifference < 500 && timeDifference > 30) {
+              // Double-tap detected within 500ms and not too fast (prevent false positives)
+              event.preventDefault();
+            }
+      
+            lastTouchTime = currentTime;
+          });
+        });
+      </script>
     <script src="spinthegnome.js"></script>
 
 <div class="chat-container">
