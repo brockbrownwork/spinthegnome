@@ -60,11 +60,6 @@ function increaseRpm() {
     }
 }
 
-// prevent zooming when click mashing on phones
-  document.getElementById('gnome').addEventListener('dblclick', function (event) {
-    event.preventDefault();
-  });
-
 // Initialize clicks display on page load
 updateClicksDisplay();
 gnome.addEventListener('click', increaseRpm);

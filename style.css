@@ -12,6 +12,7 @@ img {
 }
 
 img#gnome {
+    touch-action: manipulation; /* Prevent zooming when click mashing on smartphones */
     -webkit-tap-highlight-color: transparent;
     -webkit-user-select: none; /* For Safari */
     -moz-user-select: none; /* For Firefox */
