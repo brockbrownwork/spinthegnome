@@ -1,5 +1,4 @@
 body {
-    touch-action: manipulation; /* Prevent zooming when click mashing on smartphones */
     font-family: Comic Sans MS;
     text-align: center;
     background-image: url('grass.png');
