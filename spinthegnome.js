@@ -51,13 +51,13 @@ function increaseRpm() {
     updateClicksDisplay();
     grpmDisplay.textContent = `${rpm} GRPM`;
 
-    if ($('#grpm').css('display') === 'none') {
-        $('#grpm').fadeIn(1000);
-    }
+    // if ($('#grpm').css('display') === 'none') {
+    //     $('#grpm').fadeIn(1000);
+    // }
 
-    if (rpm >= 10) {
-        $('#faster-text').show();
-    }
+    // if (rpm >= 10) {
+    //     $('#faster-text').show();
+    // }
 }
 
 // Initialize clicks display on page load
