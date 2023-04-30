@@ -1,0 +1,13 @@
+[1mdiff --git a/index.html b/index.html[m
+[1mindex 7d34b30..62377c0 100644[m
+[1m--- a/index.html[m
+[1m+++ b/index.html[m
+[36m@@ -10,7 +10,7 @@[m
+ <body>[m
+     <br/>[m
+     <img id="gnome" src="gnome.png" alt="Gnome">[m
+[31m-    <div id="gnome-name">Gnomie Goggles the Great and Gravity-Defying (test)</div>[m
+[32m+[m[32m    <div id="gnome-name">Gnomie Goggles the Great and Gravity-Defying (test, is this even updating?)</div>[m
+     <div id="grpm">0 GRPM</div>[m
+     <div id="clicks">0 Clicks</div>[m
+     <span id="faster-text" class = "blink">[m
