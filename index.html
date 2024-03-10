@@ -1,30 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, user-scalable=no">
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="chatroom.css">
-    <link rel="stylesheet" href="style.css">
-    <title>spinthegno.me</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Cycle</title>
+<style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #000;
+    }
+    .image-container {
+      width: 25vw; /* 25% of the viewport width */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #imageDisplay {
+      width: 100%; /* Make the image fill the container */
+      height: auto; /* Adjust height automatically to maintain aspect ratio */
+      image-rendering: pixelated; /* Attempt to turn off aliasing */
+      /* Alternatively, you can try 'crisp-edges' if 'pixelated' does not give the desired effect. */
+      /* image-rendering: crisp-edges; */
+    }
+  </style>  
 </head>
 <body>
-    <div id="spinthegnome-header"></div>
-    <script src = "blinking_spinthegnome.js"></script>
-    <br/>
-    <img id="gnome" src="gnome.png" alt="Gnome">
-    <div id="gnome-name">"Goggler"</div>
-    <div id="grpm">0 GRPM</div>
-    <div id="clicks">0 Clicks</div>
-    <span id="faster-text" class = "blink">
-        <img class = "minion-siren" src = "minion_siren.gif"/>
-        FASTER, FASTER!
-        <img class = "minion-siren" src = "minion_siren.gif"/>
-    </span>
+<div class="image-container">
+  <img id="imageDisplay" src="spin_frames/0001.png" alt="Cycling Images">
+</div>
+<script>
+  let currentImageIndex = 1;
+  const totalImages = 60;
+  const frameDuration = 1000 / 60; // milliseconds
 
-    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-    <script src="spinthegnome.js"></script>
-<script src = "chatroom.js">
+  function updateImage() {
+    const imageElement = document.getElementById('imageDisplay');
+    currentImageIndex = currentImageIndex % totalImages + 1;
+    const imageName = "spin_frames/" + currentImageIndex.toString().padStart(4, '0') + '.png';
+    imageElement.src = imageName;
+  }
+
+  setInterval(updateImage, frameDuration);
 </script>
-
 </body>
 </html>
