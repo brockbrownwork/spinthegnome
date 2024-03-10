@@ -33,7 +33,7 @@
 <script>
   let currentImageIndex = 0;
   const totalImages = 60;
-  const frameDuration = 1000 / 60; // milliseconds
+  const frameDuration = 1000 / 10; // milliseconds
   const preloadedImages = [];
 
   function preloadImages() {
@@ -42,6 +42,7 @@
       img.src = "spin_frames/" + i.toString().padStart(4, '0') + '.png';
       preloadedImages.push(img);
     }
+    console.log("images preloaded!")
   }
 
   function updateImage() {
