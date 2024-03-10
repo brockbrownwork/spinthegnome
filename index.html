@@ -23,35 +23,35 @@
       width: 100%; /* Make the image fill the container */
       height: auto; /* Adjust height automatically to maintain aspect ratio */
       image-rendering: pixelated; /* Attempt to turn off aliasing */
-      /* Alternatively, you can try 'crisp-edges' if 'pixelated' does not give the desired effect. */
-      /* image-rendering: crisp-edges; */
     }
-</style>
+</style>  
 </head>
 <body>
 <div class="image-container">
-  <img id="imageDisplay" src="spin_frames/0001.png" alt="Cycling Images">
+  <img id="imageDisplay" alt="Cycling Images">
 </div>
 <script>
-  let currentImageIndex = 1;
+  let currentImageIndex = 0;
   const totalImages = 60;
   const frameDuration = 1000 / 60; // milliseconds
+  const preloadedImages = [];
 
   function preloadImages() {
     for (let i = 1; i <= totalImages; i++) {
-      const imageName = "spin_frames/" + i.toString().padStart(4, '0') + '.png';
       const img = new Image();
-      img.src = imageName;
+      img.src = "spin_frames/" + i.toString().padStart(4, '0') + '.png';
+      preloadedImages.push(img);
     }
   }
 
   function updateImage() {
     const imageElement = document.getElementById('imageDisplay');
-    currentImageIndex = currentImageIndex % totalImages + 1;
-    const imageName = "spin_frames/" + currentImageIndex.toString().padStart(4, '0') + '.png';
-    imageElement.src = imageName;
+    currentImageIndex = (currentImageIndex + 1) % totalImages;
+    imageElement.src = preloadedImages[currentImageIndex].src;
+    imageElement.alt = `Image ${currentImageIndex + 1}`;
   }
 
+  // Preload images and then start the cycle
   preloadImages();
   setInterval(updateImage, frameDuration);
 </script>
