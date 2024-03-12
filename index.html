@@ -9,6 +9,7 @@
       height: 100%;
       margin: 0;
       display: flex;
+      flex-direction: column; /* Align items in a column */
       justify-content: center;
       align-items: center;
       background-color: #000;
@@ -36,6 +37,7 @@
 </head>
 <body>
 <canvas id="canvasDisplay" class="image-container"></canvas>
+<!-- Ensure the clickDisplay is directly within the body for it to align below the canvas -->
 <script>
   let currentImageIndex = 0;
   const totalImages = 59;
@@ -60,11 +62,29 @@
     console.log("images preloaded!")
   }
 
+  let speed = 0;
+  let clickCount = 0; // Initialize click count
+  // Create an HTML element to display the number of clicks
+  const clickDisplay = document.createElement('div');
+  clickDisplay.textContent = `clicks: ${clickCount}`;
+  clickDisplay.style.color = 'white'; // Make the text color white
+  clickDisplay.style.fontFamily = 'Comic Sans MS'; // Change font to Comic Sans
+  clickDisplay.style.userSelect = 'none'; // Make text un-highlightable
+  document.body.appendChild(clickDisplay); // Append the display element to the body
+
   function updateImage() {
-    currentImageIndex = (currentImageIndex + 1) % totalImages;
+    // add speed to currentImageIndex, round it, then modulo it
+    currentImageIndex = Math.round((currentImageIndex + speed) % totalImages);
     ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
     ctx.drawImage(preloadedImages[currentImageIndex], 0, 0); // Draw the new image
   }
+
+  // if the user clicks the canvas, then speed up the animation, count the click, and update the display
+  canvas.addEventListener('click', function() {
+    speed += 0.5; // Increase speed on each click
+    clickCount += 1; // Increment click count
+    clickDisplay.textContent = `clicks: ${clickCount}`; // Update the display with the new click count
+  });
 
   // Preload images and then start the cycle
   preloadImages();
