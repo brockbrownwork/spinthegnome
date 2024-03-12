@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Image Cycle</title>
+<title>spinthegnome</title>
 <style>
     body, html {
       height: 100%;
@@ -24,21 +24,36 @@
       height: auto; /* Adjust height automatically to maintain aspect ratio */
       image-rendering: pixelated; /* Attempt to turn off aliasing */
     }
+    canvas {
+    image-rendering: optimizeSpeed;             /* Older versions of FF          */
+    image-rendering: -moz-crisp-edges;          /* FF 6.0+                       */
+    image-rendering: -webkit-optimize-contrast; /* Safari                        */
+    image-rendering: -o-crisp-edges;            /* OS X & Windows Opera (12.02+) */
+    image-rendering: pixelated;                 /* Awesome future-browsers       */
+    -ms-interpolation-mode: nearest-neighbor;   /* IE                            */
+  }
 </style>  
 </head>
 <body>
-<div class="image-container">
-  <img id="imageDisplay" alt="Cycling Images">
-</div>
+<canvas id="canvasDisplay" class="image-container"></canvas>
 <script>
   let currentImageIndex = 0;
   const totalImages = 59;
   const frameDuration = 1000 / 10; // milliseconds
   const preloadedImages = [];
+  const canvas = document.getElementById('canvasDisplay');
+  const ctx = canvas.getContext('2d');
 
   function preloadImages() {
     for (let i = 1; i <= totalImages; i++) {
       const img = new Image();
+      img.onload = function() {
+        if (i === 1) {
+          // Set canvas size based on the first image
+          canvas.width = img.width;
+          canvas.height = img.height;
+        }
+      };
       img.src = "spin_frames/" + i.toString().padStart(4, '0') + '.png';
       preloadedImages.push(img);
     }
@@ -46,10 +61,9 @@
   }
 
   function updateImage() {
-    const imageElement = document.getElementById('imageDisplay');
     currentImageIndex = (currentImageIndex + 1) % totalImages;
-    imageElement.src = preloadedImages[currentImageIndex].src;
-    imageElement.alt = `Image ${currentImageIndex + 1}`;
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+    ctx.drawImage(preloadedImages[currentImageIndex], 0, 0); // Draw the new image
   }
 
   // Preload images and then start the cycle
