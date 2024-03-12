@@ -73,8 +73,8 @@
   document.body.appendChild(clickDisplay); // Append the display element to the body
 
   function updateImage() {
-    // add speed to currentImageIndex, round it, then modulo it
-    currentImageIndex = Math.round((currentImageIndex + speed) % totalImages);
+    // add speed to currentImageIndex, ensure it's positive, then modulo it
+    currentImageIndex = (Math.round(currentImageIndex + speed) + totalImages) % totalImages;
     ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
     ctx.drawImage(preloadedImages[currentImageIndex], 0, 0); // Draw the new image
   }
