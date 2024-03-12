@@ -14,8 +14,17 @@
       align-items: center;
       background-color: #000;
     }
+    @media (max-width: 600px) {
+      .image-container {
+        width: 75vw; /* 75% of the viewport width on mobile */
+      }
+    }
+    @media (min-width: 601px) {
+      .image-container {
+        width: 25vw; /* 25% of the viewport width on desktop */
+      }
+    }
     .image-container {
-      width: 25vw; /* 25% of the viewport width */
       display: flex;
       justify-content: center;
       align-items: center;
